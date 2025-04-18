@@ -24,5 +24,8 @@ jobs:
       - name: Run tests with pytest
         run: pytest
 
+      - name: Run tests with pytest-cov
+        run: pytest --cov=features --cov=src tests/
+
       - name: Run Behave
         run: behave
