@@ -17,8 +17,8 @@ def convertir_palabra_a_numero(palabra):
             "novecientos":900, "mil":1000
         }
         return numeros.get(palabra.lower(), 0)
-
-@given('que he comido {cukes:d} pepinos')
+#Cambiamos el :d por :float
+@given('que he comido {cukes:float} pepinos')
 def step_given_eaten_cukes(context, cukes):
     context.belly.comer(cukes)
 
