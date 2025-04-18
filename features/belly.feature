@@ -50,4 +50,4 @@ Característica: Comportamiento del Estómago
   Escenario: Comer una cantidad fraccionaria de pepinos y esperar fracciones de hora
     Dado que he comido 40.5 pepinos
     Cuando espero 2.75 horas
-    Entonces mi estómago debería no gruñir
+    Entonces mi estómago no debería gruñir
