@@ -28,6 +28,14 @@ def step_when_wait_time_description(context, time_description):
 
     if time_description == 'media hora':
         total_time_in_hours = 0.5
+    elif time_description == 'una hora':
+        total_time_in_hours = 1
+    elif time_description == 'una hora y media':
+        total_time_in_hours = 1.5
+    elif time_description == 'un cuarto de hora':
+        total_time_in_hours = 0.25
+    elif time_description == 'una hora y cuarto':
+        total_time_in_hours = 1.25
     else:
         pattern = re.compile(r'(?:(\w+)\s*horas?)?\s*(?:(\w+)\s*minutos?)?\s*(?:(\w+)\s*segundos?)?')
         match = pattern.match(time_description)
@@ -40,11 +48,38 @@ def step_when_wait_time_description(context, time_description):
 
             hours = convertir_palabra_a_numero(hours_word)
             minutes = convertir_palabra_a_numero(minutes_word)
+            #Halla numero de segundos
             seconds = convertir_palabra_a_numero(seconds_word)
 
             total_time_in_hours = hours + (minutes / 60) + (seconds / 3600)
         else:
-            raise ValueError(f"No se pudo interpretar la descripción del tiempo: {time_description}")
+            if time_description == 'medio minuto':
+                total_time_in_hours = 1 / 120
+            elif time_description == 'un minuto':
+                total_time_in_hours = 1 / 60
+            else:
+                pattern_min_seg = re.compile(r'(?:(\w+)\s*minutos?)?\s*(?:(\w+)\s*segundos?)?')
+                match = pattern_min_seg.match(time_description)
+                if match:
+                    minutes_word = match.group(1) or "0"
+                    seconds_word = match.group(2) or "0"
+                    minutes = convertir_palabra_a_numero(minutes_word)
+                    seconds = convertir_palabra_a_numero(seconds_word)
+                    total_time_in_hours = (minutes / 60) + (seconds / 3600)
+                else:
+                    if time_description == 'medio segundo':
+                        total_time_in_hours = 1 / 7200
+                    elif time_description == 'un segundo':
+                        total_time_in_hours = 1 / 3600
+                    else:
+                        pattern_seg = re.compile(r'(?:(\w+)\s*segundos?)?')
+                        match = pattern_seg.match(time_description)
+                        if match:
+                            seconds_word = match.group(1) or "0"
+                            seconds = convertir_palabra_a_numero(seconds_word)
+                            total_time_in_hours = (seconds / 3600)
+                        else:
+                            raise ValueError(f"No se pudo interpretar la descripción del tiempo: {time_description}")
 
     context.belly.esperar(total_time_in_hours)
 
