@@ -36,7 +36,7 @@ jobs:
         with:
           payload: |
             {
-              "text": "❌ Falló el build de pruebas en ${{ github.repository }} en la rama ${{ github.ref_name }}.\n🔗 Ver detalles: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+              "text": "Falló el build de pruebas en ${{ github.repository }} en la rama ${{ github.ref_name }}.\n🔗 Ver detalles: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
