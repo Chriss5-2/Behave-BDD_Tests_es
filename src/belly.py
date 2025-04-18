@@ -4,7 +4,7 @@ class Belly:
         self.tiempo_esperado = 0.0
 
     def comer(self, pepinos):
-        if pepinos < 0:
+        if float(pepinos) < 0:
             raise ValueError("No es posible comer una cantidad negativa de pepinos")
         self.pepinos_comidos += float(pepinos)
 
