@@ -17,10 +17,11 @@ def convertir_palabra_a_numero(palabra):
             "novecientos":900, "mil":1000
         }
         return numeros.get(palabra.lower(), 0)
-#Cambiamos el :d por :float
-@given('que he comido {cukes:float} pepinos')
+#Quitamos el :d para que acepte cualquier tipo de dato entrante
+@given('que he comido {cukes} pepinos')
 def step_given_eaten_cukes(context, cukes):
     context.belly.comer(cukes)
+    #context.cukes = cukes
 
 @when('espero {time_description}')
 def step_when_wait_time_description(context, time_description):
