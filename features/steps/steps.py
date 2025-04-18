@@ -28,7 +28,9 @@ def step_when_wait_time_description(context, time_description):
     time_description = time_description.strip('"').lower()
     time_description = time_description.replace('y', ' ')
     time_description = time_description.strip()
-
+#    try:
+#        total_time_in_hours = float(time_description)
+#    except ValueError:
     if time_description == 'media hora':
         total_time_in_hours = 0.5
     elif time_description == 'una hora':
@@ -42,18 +44,15 @@ def step_when_wait_time_description(context, time_description):
     else:
         pattern = re.compile(r'(?:(\w+)\s*horas?)?\s*(?:(\w+)\s*minutos?)?\s*(?:(\w+)\s*segundos?)?')
         match = pattern.match(time_description)
-
         if match:
             hours_word = match.group(1) or "0"
             minutes_word = match.group(2) or "0"
 	    #Verifica el numero de segundos mencionados - misma funcion de antes pero agregando el parametro de segundos
             seconds_word = match.group(3) or "0"
-
             hours = convertir_palabra_a_numero(hours_word)
             minutes = convertir_palabra_a_numero(minutes_word)
             #Halla numero de segundos
             seconds = convertir_palabra_a_numero(seconds_word)
-
             total_time_in_hours = hours + (minutes / 60) + (seconds / 3600)
         else:
             if time_description == 'medio minuto':
