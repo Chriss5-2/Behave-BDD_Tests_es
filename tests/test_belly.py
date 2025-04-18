@@ -1,6 +1,7 @@
 #First line in test_belly.py
 import re
-from features.steps.steps import convertir_palabra_a_numero
+from features.steps.steps import convertir_palabra_a_numero, step_given_eaten_cukes, step_when_wait_time_description, step_then_belly_should_growl, step_then_belly_should_not_growl
+from src.belly import Belly
 import pytest
 
 def test_convertir_palabra_a_numero():
@@ -26,4 +27,33 @@ def test_convertir_palabra_a_numero():
     assert convertir_palabra_a_numero("") == 0
     assert convertir_palabra_a_numero(" ") == 0
     assert convertir_palabra_a_numero("dos mil") == 0
+
+# Comer pepinos enteros
+def test_comer_pepinos_enteros():
+    belly = Belly()
+    belly.comer(5)
+    assert belly.pepinos_comidos == 5
+# Comer fracciones de pepinos
+def test_comer_fraccion_pepino():
+    belly = Belly()
+    belly.comer(2.5)
+    assert belly.pepinos_comidos == 2.5
+
+# No permitir cantidd negativa de pepinos
+def test_comer_pepinos_negativos():
+    belly = Belly()
+    with pytest.raises(ValueError):
+        belly.comer(-5)
+
+def test_esta_gruñendo():
+    belly = Belly()
+    belly.comer(11)
+    belly.esperar(2)
+    assert belly.esta_gruñendo()
+
+def test_no_esta_gruñendo():
+    belly = Belly()
+    belly.comer(9)
+    belly.esperar(1)
+    assert not belly.esta_gruñendo()
 
