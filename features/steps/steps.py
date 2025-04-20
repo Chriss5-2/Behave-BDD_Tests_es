@@ -26,6 +26,24 @@ def convertir_palabra_a_numero(palabra):
         }
         return numeros.get(palabra.lower(), 0)
 
+def obtener_tiempo_aleatorio(rango_tiempo):
+    # Expresión regular para extraer el rango de tiempo
+    pattern = re.compile(r"entre (\d+(\.\d+)?) y (\d+(\.\d+)?) (horas?|minutes?|minutos?)", re.IGNORECASE)
+    match = pattern.match(rango_tiempo)
+
+    if match:
+        tiempo_min = float(match.group(1))  # Mínimo
+        tiempo_max = float(match.group(3))  # Máximo
+
+        # Elegir un tiempo aleatorio dentro del rango
+        tiempo_aleatorio = random.uniform(tiempo_min, tiempo_max)
+
+        print(f"Tiempo aleatorio elegido: {tiempo_aleatorio} horas")
+        return tiempo_aleatorio
+    else:
+        raise ValueError("El formato de la descripción del tiempo es incorrecto.")
+
+
 @parse.with_pattern(r"\-?\d+(?:\.\d+)?")
 def parse_float(text):
     return float(text)
