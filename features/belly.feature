@@ -57,7 +57,12 @@ Característica: Comportamiento del Estómago
     Cuando espero "two hours and thirty minutes"
     Entonces mi estómago debería gruñir
 
-  Escenario: Esperar usando solo minutos en inglés
+  Escenario: Esperar usando solo minutos 
     Dado que he comido 20 pepinos
     Cuando espero 3600 seconds
+    Entonces mi estómago no debería gruñir
+
+  Escenario: Comer con tiempos aleatorios
+    Dado que he comido 15 pepinos
+    Cuando espero un tiempo aleatorio entre 1 y 3 horas
     Entonces mi estómago no debería gruñir
