@@ -1,5 +1,6 @@
-from behave import given, when, then
+from behave import given, when, then, register_type
 import re
+import parse
 
 # Función para convertir palabras numéricas a números
 def convertir_palabra_a_numero(palabra):
@@ -24,8 +25,15 @@ def convertir_palabra_a_numero(palabra):
             "minute":1/60, "zero":0, "hour":1
         }
         return numeros.get(palabra.lower(), 0)
+
+@parse.with_pattern(r"\-?\d+(?:\.\d+)?")
+def parse_float(text):
+    return float(text)
+
+register_type(Number=parse_float)
+
 #Quitamos el :d para que acepte cualquier tipo de dato entrante
-@given('que he comido {cukes} pepinos')
+@given('que he comido {cukes:Number} pepinos')
 def step_given_eaten_cukes(context, cukes):
     context.belly.comer(cukes)
     #context.cukes = cukes
